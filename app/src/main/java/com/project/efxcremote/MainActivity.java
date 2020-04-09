@@ -208,7 +208,11 @@ public class MainActivity extends AppCompatActivity {
     private void readInput(){
         switch (input.size()){
             case 1:
-                txtPedal1.setText(input.get(0));
+                if(input.get(0).equals("s")){
+                    txtRespuesta.setText("Datos guardados");
+                }else{
+                    txtPedal1.setText(input.get(0));
+                }
                 break;
             case 2:
                 txtPedal2.setText(input.get(1));
@@ -217,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
                 txtPedal3.setText(input.get(2));
                 break;
             case 4:
-                txtPedal2.setText(input.get(3));
+                txtPedal4.setText(input.get(3));
                 break;
         }
     }

@@ -49,6 +49,7 @@ public class ConnectionThread extends Thread {
             System.out.println(text);
             try{
                 System.out.println("Escribiendo bytes");
+                outStream.flush();
                 outStream.write(text.getBytes());
                 outStream.flush();
             }catch (IOException e){

@@ -117,11 +117,11 @@ public class MainActivity extends AppCompatActivity {
 
         bAdapter = BluetoothAdapter.getDefaultAdapter();
 
-        if(!bAdapter.isEnabled()){
+        if(bAdapter.isEnabled()){
+            startBluetooth();
+        }else{
             Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(intent,1);
-        }else{
-            startBluetooth();
         }
     }
 
@@ -156,30 +156,36 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
-        if(!bSocket.isConnected()){
-            startBluetooth();
+        if(bSocket != null){
+            if(!bSocket.isConnected()){
+                startBluetooth();
+            }
+            bluetooth = new ConnectionThread(bSocket,handler);
+            bluetooth.start();
         }
-        bluetooth = new ConnectionThread(bSocket,handler);
-        bluetooth.start();
     }
 
     @Override
     protected void onPause(){
         super.onPause();
-        try{
-            bSocket.close();
-        }catch (IOException e){
+        if(bSocket != null){
+            try{
+                bSocket.close();
+            }catch (IOException e){
 
+            }
         }
     }
 
     @Override
     protected void onStop(){
         super.onStop();
-        try{
-            bSocket.close();
-        }catch (IOException e){
+        if(bSocket != null){
+            try{
+                bSocket.close();
+            }catch (IOException e){
 
+            }
         }
     }
 
@@ -211,17 +217,17 @@ public class MainActivity extends AppCompatActivity {
                 if(input.get(0).equals("s")){
                     txtRespuesta.setText("Datos guardados");
                 }else{
-                    txtPedal1.setText(input.get(0));
+                    txtPedal1.setText(R.string.pedal1state + input.get(0));
                 }
                 break;
             case 2:
-                txtPedal2.setText(input.get(1));
+                txtPedal2.setText(R.string.pedal2state + input.get(1));
                 break;
             case 3:
-                txtPedal3.setText(input.get(2));
+                txtPedal3.setText(R.string.pedal3state + input.get(2));
                 break;
             case 4:
-                txtPedal4.setText(input.get(3));
+                txtPedal4.setText(R.string.pedal4state + input.get(3));
                 break;
         }
     }

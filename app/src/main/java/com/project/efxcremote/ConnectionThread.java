@@ -19,8 +19,8 @@ public class ConnectionThread extends Thread {
             InputStream inStream = null;
             OutputStream outStream = null;
             try{
-                inStream = bSocket.getInputStream();
-                outStream = bSocket.getOutputStream();
+                inStream = this.bSocket.getInputStream();
+                outStream = this.bSocket.getOutputStream();
             }catch (IOException e){
                 System.out.println("Error en Streams " + e.getMessage());
             }

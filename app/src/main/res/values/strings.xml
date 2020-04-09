@@ -13,8 +13,8 @@
     <string name="pedal4">Pedal 4</string>
     <string name="ledTag">LED</string>
     <string name="stateTag">Pedal Data</string>
-    <string name="pedal1state">Pedal 1 State</string>
-    <string name="pedal2state">Pedal 2 State</string>
-    <string name="pedal3state">Pedal 3 State</string>
-    <string name="pedal4state">Pedal 4 State</string>
+    <string name="pedal1state">Pedal 1 State: </string>
+    <string name="pedal2state">Pedal 2 State: </string>
+    <string name="pedal3state">Pedal 3 State: </string>
+    <string name="pedal4state">Pedal 4 State: </string>
 </resources>

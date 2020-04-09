@@ -26,25 +26,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/pedal1"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:id="@+id/chkPedal1"/>
                 <CheckBox
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/pedal2"
                     android:id="@+id/chkPedal2"
-                    android:textSize="20sp"/>
+                    android:textSize="16sp"/>
                 <CheckBox
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/pedal3"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:id="@+id/chkPedal3"/>
                 <CheckBox
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/pedal4"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:id="@+id/chkPedal4"/>
             </TableRow>
         </TableLayout>

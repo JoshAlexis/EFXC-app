@@ -217,17 +217,17 @@ public class MainActivity extends AppCompatActivity {
                 if(input.get(0).equals("s")){
                     txtRespuesta.setText("Datos guardados");
                 }else{
-                    txtPedal1.setText(R.string.pedal1state + input.get(0));
+                    txtPedal1.setText("Pedal 1 State: " + input.get(0));
                 }
                 break;
             case 2:
-                txtPedal2.setText(R.string.pedal2state + input.get(1));
+                txtPedal2.setText("Pedal 2 State: " + input.get(1));
                 break;
             case 3:
-                txtPedal3.setText(R.string.pedal3state + input.get(2));
+                txtPedal3.setText("Pedal 3 State: " + input.get(2));
                 break;
             case 4:
-                txtPedal4.setText(R.string.pedal4state + input.get(3));
+                txtPedal4.setText("Pedal 4 State: " + input.get(3));
                 break;
         }
     }

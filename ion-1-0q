@@ -1,0 +1,55 @@
+[33mcommit 7cc84e2cfead05998fb902822c1c2e25cb56783f[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: Arturo Cazares <2017030702@upsin.edu.mx>
+Date:   Sat Apr 11 13:12:57 2020 -0600
+
+    Agregado de archivos
+
+[33mcommit b888e3b795f2d39fb366db15da00d28881325f4d[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/3-version-1-0[m[33m)[m
+Merge: 2365528 cdcfdff
+Author: Erik Abraham Godoy Rojas <2017030708@upsin.edu.mx>
+Date:   Fri Apr 10 21:20:07 2020 +0000
+
+    Merge branch '2-bluetooth-driver' into 'master'
+    
+    Merge Bluetooth Driver
+    
+    Closes #2
+    
+    See merge request contrerasgonzalez/projectoandroid!1
+
+[33mcommit cdcfdff5f8057accfc0d5a67532aa70113878269[m[33m ([m[1;31morigin/2-bluetooth-driver[m[33m)[m
+Author: 98128 <2017030708@upsin.edu.mx>
+Date:   Fri Apr 10 15:17:27 2020 -0600
+
+    bluetooth driver
+
+[33mcommit 23655284cb56b41d43e2d02e1df375bcbc937a4a[m
+Merge: 38352e7 e2f4aa7
+Author: Kenneth Wilson <2017030767@upsin.edu.mx>
+Date:   Thu Apr 9 17:15:47 2020 -0600
+
+    Merge Correccion-Ajuste
+
+[33mcommit e2f4aa76d49cfe7b2637069e6f65f63afc2f62f9[m[33m ([m[1;31morigin/1-correccion-ajuste[m[33m)[m
+Author: Kenneth Wilson <2017030767@upsin.edu.mx>
+Date:   Thu Apr 9 17:14:14 2020 -0600
+
+    Ajuste ligero interfaz realizado
+
+[33mcommit 4773af1c42d4677609424a2413ed7a17502e023f[m
+Author: Kenneth Wilson <2017030767@upsin.edu.mx>
+Date:   Thu Apr 9 17:11:11 2020 -0600
+
+    Corregido cierre aplicacion
+
+[33mcommit 38352e7e7dae78ca68a76b352abe489d34b59e2d[m
+Author: Contreras Gonzalez <joshyec@gmail.com>
+Date:   Wed Apr 8 20:39:13 2020 -0600
+
+    Funcional
+
+[33mcommit d4ec9a80063a844a4c525b19c3c076a405c39256[m
+Author: Contreras Gonzalez <joshyec@gmail.com>
+Date:   Wed Apr 8 20:37:14 2020 -0600
+
+    EFXC Remote

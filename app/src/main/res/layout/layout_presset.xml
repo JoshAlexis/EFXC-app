@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#242B33">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:srcCompat="@drawable/song" />
+                <LinearLayout
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+
+                    android:paddingTop="20dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Título presset"
+                        android:textColor="#fff"
+                        android:textSize="25dp"
+                        android:layout_gravity="center"
+                        android:gravity=""
+                        android:paddingLeft="20dp"
+                        android:id="@+id/lblTituloPresset"/>
+                    <TableLayout
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingLeft="5dp">
+                        <TableRow>
+                            <Button
+                                android:id="@+id/btnSeleccionar"
+                                android:text="Ver"
+                                android:layout_height="wrap_content"
+                                android:layout_width="match_parent" />
+                            <Button
+                                android:id="@+id/btnBorrar"
+                                android:text="Borrar"
+                                android:layout_height="wrap_content"
+                                android:layout_width="match_parent" />
+                        </TableRow>
+                    </TableLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:stretchColumns="*">
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <LinearLayout
+                                android:layout_width="50dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:paddingTop="10dp">
+                                <Button
+                                    android:layout_width="80dp"
+                                    android:layout_height="80dp"
+                                    android:background="@drawable/btnactive"
+                                    android:id="@+id/btnPedal1"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"/>
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="50dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:paddingTop="10dp">
+                                <Button
+                                    android:layout_width="80dp"
+                                    android:layout_height="80dp"
+                                    android:background="@drawable/btnactive"
+                                    android:id="@+id/btnPedal2"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"/>
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="50dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:paddingTop="10dp">
+                                <Button
+                                    android:layout_width="80dp"
+                                    android:layout_height="80dp"
+                                    android:background="@drawable/btnactive"
+                                    android:id="@+id/btnPedal3"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"/>
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="50dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:paddingTop="10dp">
+                                <Button
+                                    android:layout_width="80dp"
+                                    android:layout_height="80dp"
+                                    android:background="@drawable/btnactive"
+                                    android:id="@+id/btnPedal4"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"/>
+                            </LinearLayout>
+                        </TableRow>
+                    </TableLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

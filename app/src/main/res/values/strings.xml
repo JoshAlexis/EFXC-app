@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">EFXC Remote</string>
+    <string name="btnSalir">Salir</string>
+    <string name="pedal1">Pedal 1</string>
+    <string name="pedal2">Pedal 2</string>
+    <string name="pedal3">Pedal 3</string>
+    <string name="pedal4">Pedal 4</string>
+    <string name="btnSave">Guardar</string>
+    <string name="regresar">Regresar</string>
+
+    <string name="btnOnlinePressets">Lista de Pressets</string>
+    <string name="namePresset">PRESSET</string>
+</resources>

@@ -18,6 +18,10 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
+
+import com.project.efxcremote.database.DBPresets;
+import com.project.efxcremote.database.Preset;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,6 +41,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private CheckBox checkPedal1, checkPedal2, checkPedal3, checkPedal4;
     private Button btnOnlinePressets, btnSalir, btnGuardar;
     private EditText txtNombrePresset;
+    private DBPresets db;
+    private Preset savedPreset;
+    private long id;
 
     ArrayList<String> input = new ArrayList<>();
 
@@ -46,6 +53,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         iniciarComponentes();
         iniciarEventos();
+
+        handler = new Handler(Looper.getMainLooper()){
+            @Override
+            public void handleMessage(Message msg){
+                if(msg.what == HANDLE_STATE){
+                    String inputText = (String)msg.obj;
+                    if(inputText.equals("1") || inputText.equals("0"))
+                        input.add(inputText);
+                }
+            }
+        };
+
+        bAdapter = BluetoothAdapter.getDefaultAdapter();
+        if(bAdapter.isEnabled()){
+            startBluetooth();
+        }else{
+            Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(intent,1);
+        }
     }
 
 
@@ -60,27 +86,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnOnlinePressets = (Button) findViewById(R.id.btnOnlinePressets);
         btnSalir = (Button) findViewById(R.id.btnSalir);
         btnGuardar = (Button) findViewById(R.id.btnEnviar);
-
-        /*handler = new Handler(Looper.getMainLooper()){
-            @Override
-            public void handleMessage(Message msg){
-                if(msg.what == HANDLE_STATE){
-                    String inputText = (String)msg.obj;
-                    if(inputText.equals("1") || inputText.equals("0"))
-                        input.add(inputText);
-                }
-                //readInput();
-            }
-        };
-
-        bAdapter = BluetoothAdapter.getDefaultAdapter();
-        if(bAdapter.isEnabled()){
-            startBluetooth();
-        }else{
-            Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(intent,1);
-        }*/
-
+        db = new DBPresets(MainActivity.this);
+        savedPreset = null;
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 
@@ -91,10 +98,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode,resultCode,data);
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent){
+        super.onActivityResult(requestCode,resultCode,intent);
         if(resultCode == RESULT_OK && requestCode == 1){
             startBluetooth();
+        }else if(resultCode == RESULT_OK && requestCode == 2){
+            if(intent != null){
+                Bundle bundle = intent.getExtras();
+                Preset preset = (Preset) bundle.getSerializable("preset");
+                savedPreset = preset;
+                txtNombrePresset.setText(preset.getNombre_preset());
+                checkPedal1.setChecked(preset.getPedal_one().equals("1"));
+                checkPedal2.setChecked(preset.getPedal_two().equals("1"));
+                checkPedal3.setChecked(preset.getPedal_three().equals("1"));
+                checkPedal4.setChecked(preset.getPedal_four().equals("1"));
+                id = preset.getID();
+            }
         }
     }
 
@@ -125,8 +144,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if(!bSocket.isConnected()){
                 startBluetooth();
             }
+            if(!bAdapter.isEnabled()){
+                Intent i = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(i,1);
+            }
             bluetooth = new ConnectionThread(bSocket,handler);
             bluetooth.start();
+        }else{
+            if(!bAdapter.isEnabled()){
+                Intent i = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(i,1);
+            }
         }
     }
 
@@ -171,7 +199,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.btnEnviar:
-                enviar();
+                boolean exito = false;
+                if(bSocket.isConnected() && bluetooth != null){
+                    if(txtNombrePresset.getText().toString().equals("")){
+                        Toast.makeText(MainActivity.this,"Ingrese nombre preset",Toast.LENGTH_SHORT).show();
+                    }else{
+                        enviar();
+                        for(String inputData : input){
+                            if(inputData.equals("s")){
+                                Toast.makeText(MainActivity.this,"Datos enviados y guardados",Toast.LENGTH_SHORT).show();
+                                exito = true;
+                                break;
+                            }
+                        }
+                        if(!exito)
+                            Toast.makeText(MainActivity.this,"No se ha podido enviar",Toast.LENGTH_LONG).show();
+                        if(exito)
+                            saveInDatabase();
+                    }
+
+                }else{
+                    Toast.makeText(MainActivity.this,"No hay conexión",Toast.LENGTH_SHORT).show();
+                }
                 break;
 
             case R.id.btnOnlinePressets:
@@ -186,30 +235,50 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         for(String output : data){ bluetooth.write(output);}
     }
 
-    public void onlinePressets(){
-        Intent i = new Intent(MainActivity.this, ListActivity.class);
-        startActivity(i);
+    private void saveInDatabase(){
+        if(txtNombrePresset.getText().toString().equals("")){
+            Toast.makeText(MainActivity.this,"Ingrese un nombre",Toast.LENGTH_SHORT).show();
+        }else{
+            db.openDatabase();
+            Preset preset = new Preset();
+            preset.setNombre_preset(txtNombrePresset.getText().toString());
+            preset.setPedal_one(valueFromCheckBoxes()[1]);
+            preset.setPedal_two(valueFromCheckBoxes()[2]);
+            preset.setPedal_three(valueFromCheckBoxes()[3]);
+            preset.setPedal_four(valueFromCheckBoxes()[4]);
+            if(savedPreset == null){
+                long idx = db.insertPreset(preset);
+                if(idx > 0){
+                    Toast.makeText(MainActivity.this,"Se ha guardado el preset",Toast.LENGTH_SHORT).show();
+                    limpiar();
+                }else{
+                    Toast.makeText(MainActivity.this,"No se ha guardado el preset",Toast.LENGTH_SHORT).show();
+                }
+            }else{
+                long idx = db.updatePreset(preset,id);
+                System.out.println(preset.getID());
+                if(idx > 0){
+                    Toast.makeText(MainActivity.this,"Se ha actualizado el preset",Toast.LENGTH_SHORT).show();
+                    limpiar();
+                }else{
+                    Toast.makeText(MainActivity.this,"No se ha actualizado el preset",Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
     }
 
+    public void onlinePressets(){
+        Intent i = new Intent(MainActivity.this, ListActivity.class);
+        startActivityForResult(i,2);
+    }
 
-    /*private void readInput(){
-        switch (input.size()){
-            case 1:
-                if(input.get(0).equals("s")){
-                    txtRespuesta.setText("Datos guardados");
-                }else{
-                    txtPedal1.setText(input.get(0));
-                }
-                break;
-            case 2:
-                txtPedal2.setText(input.get(1));
-                break;
-            case 3:
-                txtPedal3.setText(input.get(2));
-                break;
-            case 4:
-                txtPedal4.setText(input.get(3));
-                break;
-        }
-    }*/
+    private void limpiar(){
+        checkPedal1.setChecked(false);
+        checkPedal2.setChecked(false);
+        checkPedal3.setChecked(false);
+        checkPedal4.setChecked(false);
+        txtNombrePresset.setText("");
+        id = 0;
+        savedPreset = null;
+    }
 }

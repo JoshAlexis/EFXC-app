@@ -71,7 +71,7 @@
         android:padding="20dp"
         >
         <ListView
-            android:id="@+id/list_presset"
+            android:id="@android:id/list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingTop="10dp"

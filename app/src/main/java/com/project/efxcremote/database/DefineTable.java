@@ -1,5 +1,8 @@
 package com.project.efxcremote.database;
-
+/**
+ * Esta clase define los nombres y tipos de datos de los campos, para la creación de la
+ * tabla en la base de datos.
+ */
 public abstract class DefineTable {
     public final static String TABLE_NAME = "presets";
     public final static String ID = "id";
